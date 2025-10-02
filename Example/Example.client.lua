@@ -1,34 +1,15 @@
--- Example usage for LumaUI
--- Place this LocalScript under StarterPlayer/StarterPlayerScripts
--- Ensure the LumaUI folder is under ReplicatedStorage
+-- LumaUI Example for Executor
+-- Load this script via your executor to inject LumaUI into any Roblox game
+-- Make sure HTTP requests are enabled in your executor
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LumaUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/kiruwfh/LumaUI/main/LumaUI.lua"))()
 
--- Try to load LumaUI from GitHub raw first, fallback to local ReplicatedStorage
-local function loadLumaUI()
-    local urls = {
-        "https://raw.githubusercontent.com/kiruwfh/LumaUI/main/LumaUI.lua",
-        "https://raw.githubusercontent.com/kiruwfh/LumaUI/refs/heads/main/LumaUI.lua",
-    }
-    for _, u in ipairs(urls) do
-        local ok, lib = pcall(function()
-            local src = game:HttpGet(u)
-            local fn = loadstring(src)
-            return fn()
-        end)
-        if ok and lib then return lib end
-    end
-    -- Fallback to local module
-    local ok, lib = pcall(function()
-        return require(ReplicatedStorage:WaitForChild("LumaUI"))
-    end)
-    if ok and lib then return lib end
-    error("LumaUI not found (remote and local fallback failed)")
-end
-
-local LumaUI = loadLumaUI()
-
-local gui = LumaUI.createScreenGui("LumaDemo")
+-- Create GUI in CoreGui (visible even if game resets GUI)
+local gui = Instance.new("ScreenGui")
+gui.Name = "LumaDemo"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Parent = game:GetService("CoreGui")
 
 -- Card surface in the center
 local card = LumaUI.Surface.new(gui, {
