@@ -1,6 +1,6 @@
 -- LumaUI single-file bundle for remote loadstring usage
 -- Usage:
-local LumaUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/kiruwfh/LumaUI/main/LumaUI.lua"))()
+-- local LumaUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/kiruwfh/LumaUI/main/LumaUI.lua"))()
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
